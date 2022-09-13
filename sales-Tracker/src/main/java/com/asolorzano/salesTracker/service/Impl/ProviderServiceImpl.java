@@ -19,8 +19,11 @@ public class ProviderServiceImpl extends CRUDImpl<Provider, Integer> implements 
         return repo;
     }
 
+    /*
     @Override
     public List<Category> findByNameLike(String name) {
         return null;
     }
+
+     */
 }

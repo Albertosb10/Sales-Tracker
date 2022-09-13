@@ -12,6 +12,7 @@ public class User {
 
 
     @Id
+    //@GeneratedValue (strategy = GenerationType.AUTO )
     private Integer idUser;
 
     /*
@@ -25,10 +26,10 @@ public class User {
     private List<Role> role;
     */
 
+
     @ManyToOne //FK
     @JoinColumn(name = "id_role", nullable = false)
     private Role role;
-
 
     @Column(length = 50, nullable = false)
     private String userName;

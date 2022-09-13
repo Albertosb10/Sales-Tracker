@@ -20,10 +20,12 @@ public class ProductServiceImpl  extends CRUDImpl<Product, Integer> implements I
         return repo;
     }
 
-    @Override
+    /*@Override
     public List<Category> findByNameLike(String name) {
         return null;
     }
+
+     */
 
 
 }

@@ -46,6 +46,12 @@ public class MapperConfig {
     @Bean("providerMapper")
     public ModelMapper providerMapper(){ return new ModelMapper();}
 
+    @Bean("userMapper")
+    public ModelMapper userMapper(){ return new ModelMapper();}
+
+    @Bean("saleMapper")
+    public ModelMapper saleMapper(){ return new ModelMapper();}
+
 
 
 }

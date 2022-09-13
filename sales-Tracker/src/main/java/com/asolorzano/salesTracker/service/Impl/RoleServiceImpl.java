@@ -22,9 +22,12 @@ public class RoleServiceImpl extends CRUDImpl<Role, Integer> implements IRoleSer
         return repo;
     }
 
+    /*
     @Override
     public List<Category> findByNameLike(String name) {
         return null;
     }
+
+     */
 }
 

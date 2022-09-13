@@ -36,6 +36,6 @@ public abstract class CRUDImpl<T, ID> implements ICRUD<T,ID> {
         getRepo().deleteById(id);
     }
 
-    public abstract List<Category> findByNameLike(String name);
+    //public abstract List<Category> findByNameLike(String name);
 }
 

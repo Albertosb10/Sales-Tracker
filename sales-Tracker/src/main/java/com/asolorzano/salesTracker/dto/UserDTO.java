@@ -6,17 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-//Para dejar que pasen los campos nulos
- @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoleDTO {
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserDTO {
 
-    private Integer idRole;
-    private String name;
+    private Integer idUser;
+    private RoleDTO role;
+    private String username;
+    private String password;
     private boolean enabled;
 
 }
