@@ -32,9 +32,9 @@ public class User {
     private Role role;
 
     @Column(length = 50, nullable = false)
-    private String userName;
+    private String username;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 150, nullable = false)
     private String password;
 
     private boolean enabled;

@@ -36,8 +36,8 @@ public class JwtUserDetailsService implements UserDetailsService {
         System.out.println("Role: " +role);
         roles.add(new SimpleGrantedAuthority(role));
 
-        //imboco la clase user de spring
-        return new User(userData.getUserName(), userData.getPassword(), userData.isEnabled(), true, true, true, roles);
+        //Import User class from Spring
+        return new User(userData.getUsername(), userData.getPassword(), userData.isEnabled(), true, true, true, roles);
 
 
     }

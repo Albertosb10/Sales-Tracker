@@ -38,7 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             //a partir de la poscicion 7
             jwtToken = requestTokenHeader.substring(7);
             try{
-                username = jwtTokenUtil.getUserNameFromToken(jwtToken);
+                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             }catch(IllegalArgumentException e){
                 System.out.println("No se puede encontrar el token JWT");
             }catch (ExpiredJwtException e)

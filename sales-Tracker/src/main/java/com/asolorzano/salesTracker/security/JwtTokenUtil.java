@@ -21,15 +21,17 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenUtil implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     //milisegundos y constante
     public final long JWT_TOKEN_VALIDITY = 5 * 50 * 50 * 1000;  //5 horas
 
-    //el secret esta enn porperties
-    @Value("${jwt.secret}")
+    //the secret is in properties
+    @Value("${jwt.secret")
     private String secret;
 
 
-    public String getUserNameFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
@@ -38,7 +40,7 @@ public class JwtTokenUtil implements Serializable {
         return claimsResolver.apply(claims);
     }
 
-    public Claims getAllClaimFromToken(String token){
+    private Claims getAllClaimFromToken(String token){
         return Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody();
     }
 
@@ -52,8 +54,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateToken(UserDetails userDetails) {
-        //Utilizo la clase MAP, pues a diferencia del array list esta no
-        //permite que se dupique la llave valor
+        //Use class map due to it does not allow key value be duplicated
         Map<String, Object> claims = new HashMap();
         claims.put("role", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining()));
         claims.put("opcional", "probando");
@@ -68,7 +69,7 @@ public class JwtTokenUtil implements Serializable {
 
     public Boolean validateToken(String token, UserDetails userDetails)
     {
-        final String username = getUserNameFromToken(token);
+        final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
