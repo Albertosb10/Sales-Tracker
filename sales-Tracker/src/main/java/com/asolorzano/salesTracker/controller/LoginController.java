@@ -1,6 +1,5 @@
 package com.asolorzano.salesTracker.controller;
 
-
 import com.asolorzano.salesTracker.security.JwtRequest;
 import com.asolorzano.salesTracker.security.JwtResponse;
 import com.asolorzano.salesTracker.security.JwtTokenUtil;
@@ -30,7 +29,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody JwtRequest req)throws Exception{
-        //for current user verification
         authenticate(req.getUsername(), req.getPassword());
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(req.getUsername());
@@ -43,7 +41,6 @@ public class LoginController {
 
     private void authenticate(String username, String password) throws Exception{
         try{
-            //For token validation (params at the end)
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
         }catch (DisabledException e)
         {

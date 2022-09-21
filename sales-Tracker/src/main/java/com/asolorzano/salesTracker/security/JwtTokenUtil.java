@@ -1,6 +1,5 @@
 package com.asolorzano.salesTracker.security;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,34 +16,37 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
-//Clase 1
+//1
 @Component
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //milisegundos y constante
-    public final long JWT_TOKEN_VALIDITY = 5 * 50 * 50 * 1000;  //5 horas
+    //milisegundos
+    public final long JWT_TOKEN_VALIDITY = 5 * 50 * 50 * 1000;  //5 Hours
 
-    //the secret is in properties
     @Value("${jwt.secret")
     private String secret;
 
-
     public String getUsernameFromToken(String token) {
+
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver){
         final Claims claims = getAllClaimFromToken(token);
         return claimsResolver.apply(claims);
     }
 
     private Claims getAllClaimFromToken(String token){
-        return Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody();
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public Date getExpirationDateFromToken(String token){
+
         return getClaimFromToken(token,Claims::getExpiration);
     }
 
@@ -53,11 +55,10 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
-        //Use class map due to it does not allow key value be duplicated
+    public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap();
-        claims.put("role", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining()));
-        claims.put("opcional", "probando");
+        claims.put("role",userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining()));
+        claims.put("opcional","probando");
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
@@ -72,8 +73,4 @@ public class JwtTokenUtil implements Serializable {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
-
-
-
 }
